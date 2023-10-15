@@ -40,8 +40,8 @@
             </div>
             <div class="balance-box"> <!-- # Added balance box div -->
                 <h2>Balance</h2>
-                <p><span id="balanceValue"></span></p> <!-- # Initial balance value -->
-            </div>
+                <p>$<span id="balanceValue"></span></p> <!-- # Initial balance value -->
+            </div>            
             <div class="daily-tip">
                 <h2>Daily Tip</h2>
                 <p>Avoid FOMO (Fear of Missing Out): Don't chase after hype or quick gains.</p>
@@ -104,7 +104,7 @@
             } else {
                 alert("Not enough money! Please enter a smaller amount.");
             }
-            document.getElementById("balanceValue").textContent = balance;
+            document.getElementById("balanceValue").textContent = Math.trunc(balance); // Update balance
             document.getElementById("totalBitcoins").textContent = totalcoins; // Update total bitcoins
         }
 
@@ -126,7 +126,7 @@
             } else {
                 alert("Not enough crypto! Please enter a smaller amount.");
             }
-            document.getElementById("balanceValue").textContent = balance;
+            document.getElementById("balanceValue").textContent = Math.trunc(balance); // Update balance
             document.getElementById("totalBitcoins").textContent = totalcoins; // Update total bitcoins
         }
             

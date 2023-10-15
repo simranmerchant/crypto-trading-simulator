@@ -65,6 +65,14 @@ body {
     color: #ff6b6b; /* Pink color for balance value */
 }
 
+/* Your CSS file */
+.balance-box p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff6b6b; /* Pink color for balance value */
+}
+
+
 /* Style the input and buttons for buying/selling */
 input[type="number"] {
     padding: 10px;
