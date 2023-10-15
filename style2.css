@@ -59,13 +59,6 @@ body {
     font-family: 'Verdana', Geneva, Tahoma, sans-serif;
 }
 
-#balanceValue {
-    font-size: 24px;
-    font-weight: bold;
-    color: #ff6b6b; /* Pink color for balance value */
-}
-
-/* Your CSS file */
 .balance-box p {
     font-size: 24px;
     font-weight: bold;

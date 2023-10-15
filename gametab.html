@@ -130,24 +130,7 @@
             document.getElementById("totalBitcoins").textContent = totalcoins; // Update total bitcoins
         }
             
-        //     if (coin == "bitcoin" && sellamt / bitcoinprice <= bitcoin) {
-        //         bitcoin -= sellamt / bitcoinprice;
-        //         balance += sellamt;
-        //     }
-        //     if (coin == "ethereum" && sellamt / bitcoinprice <= ethereum) {
-        //         ethereum -= sellamt / ethereumprice;
-        //         balance += sellamt;
-        //     }
-        //     if (coin == "litecoin" && sellamt / bitcoinprice <= litecoin) {
-        //         litecoin -= sellamt / litecoinprice;
-        //         balance += sellamt;
-        //     } else {
-        //         alert("Not enough crypto! Please enter a smaller amount.");
-        //     }
-        //     document.getElementById("balanceValue").textContent = balance;
-        // }
-
-        let data = [];
+        let data = []; // Array to hold the data points
 
         // Set up chart dimensions
         const width = 600; // Width of the chart
@@ -195,35 +178,41 @@
 
         // Function to update the chart
         function updateChart() {
-            // Simulate a new data point (replace with actual data retrieval logic)
-            const newDataPoint = { date: new Date(), price: Math.random() * 15000 + 15000 };
+            // Fetch new data from the API
+            fetch('https://api.coingecko.com/api/v3/coins/bitcoin')
+                .then(response => response.json())
+                .then(responseData => {
+                    // Define the new data point
+                    const newDataPoint = {
+                        date: new Date(),
+                        price: responseData.market_data.current_price.usd
+                    };
 
-            bitcoinprice = newDataPoint.price;
+                    // Add the new data point to the end of the array
+                    data.push(newDataPoint);
 
-            // Add the new data point to the end of the array
-            data.push(newDataPoint);
+                    // Remove the oldest data point (from the beginning of the array)
+                    if (data.length > 20) {
+                        data.shift();
+                    }
 
-            // Remove the oldest data point (from the beginning of the array)
-            if (data.length > 20) {
-                data.shift();
-            }
+                    // Update x and y scales' domains based on the new data
+                    xScale.domain(d3.extent(data, d => d.date));
+                    yScale.domain([0, d3.max(data, d => d.price)]);
 
-            // Update x and y scales' domains based on the new data
-            xScale.domain(d3.extent(data, d => d.date));
-            yScale.domain([0, d3.max(data, d => d.price)]);
+                    // Update existing elements (e.g., lines)
+                    svg.select(".line")
+                        .datum(data)
+                        .attr("d", line);
 
-            // Update existing elements (e.g., lines)
-            svg.select(".line")
-                .datum(data)
-                .attr("d", line);
+                    // Update x-axis
+                    svg.select(".x-axis")
+                        .call(xAxis);
 
-            // Update x-axis
-            svg.select(".x-axis")
-                .call(xAxis);
-
-            // Update y-axis
-            svg.select(".y-axis")
-                .call(yAxis);
+                    // Update y-axis
+                    svg.select(".y-axis")
+                        .call(yAxis);
+                });
         }
 
         // Call the updateChart function immediately to render the initial chart
@@ -231,6 +220,45 @@
 
         // Update the chart every 1 second
         setInterval(updateChart, 1000);
-    </script>
-</body>
-</html>
+
+
+//         function updateChart() {
+//             // Simulate a new data point (replace with actual data retrieval logic)
+//             const newDataPoint = { date: new Date(), price: Math.random() * 15000 + 15000 };
+
+//             bitcoinprice = newDataPoint.price;
+
+//             // Add the new data point to the end of the array
+//             data.push(newDataPoint);
+
+//             // Remove the oldest data point (from the beginning of the array)
+//             if (data.length > 20) {
+//                 data.shift();
+//             }
+
+//             // Update x and y scales' domains based on the new data
+//             xScale.domain(d3.extent(data, d => d.date));
+//             yScale.domain([0, d3.max(data, d => d.price)]);
+
+//             // Update existing elements (e.g., lines)
+//             svg.select(".line")
+//                 .datum(data)
+//                 .attr("d", line);
+
+//             // Update x-axis
+//             svg.select(".x-axis")
+//                 .call(xAxis);
+
+//             // Update y-axis
+//             svg.select(".y-axis")
+//                 .call(yAxis);
+//         }
+
+//         // Call the updateChart function immediately to render the initial chart
+//         updateChart();
+
+//         // Update the chart every 1 second
+//         setInterval(updateChart, 1000);
+//     </script>
+// </body>
+// </html>
