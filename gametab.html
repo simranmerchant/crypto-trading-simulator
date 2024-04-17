@@ -176,43 +176,82 @@
             .attr("fill", "none") // Set fill to "none"
             .attr("stroke", "blue"); // Set the line color (you can change "blue" to your desired color)
 
-        // Function to update the chart
+        // // Function to update the chart
+        // function updateChart() {
+        //     // Fetch new data from the API
+        //     fetch('https://api.coingecko.com/api/v3/coins/bitcoin')
+        //         .then(response => response.json())
+        //         .then(responseData => {
+        //             // Define the new data point
+        //             const newDataPoint = {
+        //                 date: new Date(),
+        //                 price: responseData.market_data.current_price.usd
+        //             };
+
+        //             // Add the new data point to the end of the array
+        //             data.push(newDataPoint);
+
+        //             // Remove the oldest data point (from the beginning of the array)
+        //             if (data.length > 20) {
+        //                 data.shift();
+        //             }
+
+        //             // Update x and y scales' domains based on the new data
+        //             xScale.domain(d3.extent(data, d => d.date));
+        //             yScale.domain([0, d3.max(data, d => d.price)]);
+
+        //             // Update existing elements (e.g., lines)
+        //             svg.select(".line")
+        //                 .datum(data)
+        //                 .attr("d", line);
+
+        //             // Update x-axis
+        //             svg.select(".x-axis")
+        //                 .call(xAxis);
+
+        //             // Update y-axis
+        //             svg.select(".y-axis")
+        //                 .call(yAxis);
+        //         });
+        // }
+
+        // // Call the updateChart function immediately to render the initial chart
+        // updateChart();
+
+        // // Update the chart every 1 second
+        // setInterval(updateChart, 1000);
+
+
         function updateChart() {
-            // Fetch new data from the API
-            fetch('https://api.coingecko.com/api/v3/coins/bitcoin')
-                .then(response => response.json())
-                .then(responseData => {
-                    // Define the new data point
-                    const newDataPoint = {
-                        date: new Date(),
-                        price: responseData.market_data.current_price.usd
-                    };
+            // Simulate a new data point (replace with actual data retrieval logic)
+            const newDataPoint = { date: new Date(), price: Math.random() * 15000 + 15000 };
 
-                    // Add the new data point to the end of the array
-                    data.push(newDataPoint);
+            bitcoinprice = newDataPoint.price;
 
-                    // Remove the oldest data point (from the beginning of the array)
-                    if (data.length > 20) {
-                        data.shift();
-                    }
+            // Add the new data point to the end of the array
+            data.push(newDataPoint);
 
-                    // Update x and y scales' domains based on the new data
-                    xScale.domain(d3.extent(data, d => d.date));
-                    yScale.domain([0, d3.max(data, d => d.price)]);
+            // Remove the oldest data point (from the beginning of the array)
+            if (data.length > 20) {
+                data.shift();
+            }
 
-                    // Update existing elements (e.g., lines)
-                    svg.select(".line")
-                        .datum(data)
-                        .attr("d", line);
+            // Update x and y scales' domains based on the new data
+            xScale.domain(d3.extent(data, d => d.date));
+            yScale.domain([0, d3.max(data, d => d.price)]);
 
-                    // Update x-axis
-                    svg.select(".x-axis")
-                        .call(xAxis);
+            // Update existing elements (e.g., lines)
+            svg.select(".line")
+                .datum(data)
+                .attr("d", line);
 
-                    // Update y-axis
-                    svg.select(".y-axis")
-                        .call(yAxis);
-                });
+            // Update x-axis
+            svg.select(".x-axis")
+                .call(xAxis);
+
+            // Update y-axis
+            svg.select(".y-axis")
+                .call(yAxis);
         }
 
         // Call the updateChart function immediately to render the initial chart
@@ -220,46 +259,6 @@
 
         // Update the chart every 1 second
         setInterval(updateChart, 1000);
-
-// randomized value chart
-
-//         function updateChart() {
-//             // Simulate a new data point (replace with actual data retrieval logic)
-//             const newDataPoint = { date: new Date(), price: Math.random() * 15000 + 15000 };
-
-//             bitcoinprice = newDataPoint.price;
-
-//             // Add the new data point to the end of the array
-//             data.push(newDataPoint);
-
-//             // Remove the oldest data point (from the beginning of the array)
-//             if (data.length > 20) {
-//                 data.shift();
-//             }
-
-//             // Update x and y scales' domains based on the new data
-//             xScale.domain(d3.extent(data, d => d.date));
-//             yScale.domain([0, d3.max(data, d => d.price)]);
-
-//             // Update existing elements (e.g., lines)
-//             svg.select(".line")
-//                 .datum(data)
-//                 .attr("d", line);
-
-//             // Update x-axis
-//             svg.select(".x-axis")
-//                 .call(xAxis);
-
-//             // Update y-axis
-//             svg.select(".y-axis")
-//                 .call(yAxis);
-//         }
-
-//         // Call the updateChart function immediately to render the initial chart
-//         updateChart();
-
-//         // Update the chart every 1 second
-//         setInterval(updateChart, 1000);
 //     </script>
 // </body>
 // </html>
